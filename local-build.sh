@@ -4,6 +4,9 @@
 # This script generates an APK without using Expo's build service
 # Requires Android SDK and NDK to be installed
 
+# Make sure we're in the right directory
+cd "$(dirname "$0")"
+
 # Check if necessary tools are installed
 if ! command -v npx &> /dev/null; then
     echo "Error: npx is not installed. Please install Node.js and npm."
@@ -26,6 +29,9 @@ cd android
 if [ -f "./gradlew" ]; then
     echo "Building APK using Gradle..."
 
+    # Make gradlew executable
+    chmod +x ./gradlew
+
     # Build the APK using Gradle
     ./gradlew assembleRelease
 
@@ -37,7 +43,7 @@ if [ -f "./gradlew" ]; then
             # Copy the APK to the project root for easier access
             cp $APK_PATH ../PingPongGame.apk
             echo "Build successful! APK saved as PingPongGame.apk"
-            echo "You can find the APK in: $(pwd)/../PingPongGame.apk"
+            echo "You can find the APK in: $(cd .. && pwd)/PingPongGame.apk"
         else
             echo "Error: APK file not found at expected location."
         fi

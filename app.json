@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Ping Pong Game",
-    "slug": "ping-pong-game",
+    "slug": "pingpod",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
