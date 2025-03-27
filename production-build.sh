@@ -2,10 +2,10 @@
 
 # Production Build Script for Ping Pong Game APK
 
-# Check if EAS CLI is installed
-if ! command -v eas &> /dev/null; then
-    echo "EAS CLI is not installed. Installing now..."
-    npm install -g eas-cli
+# Install the specific version of EAS CLI (5.7.0) if not already installed
+if ! command -v eas &> /dev/null || [[ "$(eas --version)" != "5.7.0" ]]; then
+    echo "Installing EAS CLI version 5.7.0..."
+    npm install -g eas-cli@5.7.0
 fi
 
 # Login to Expo (if not already logged in)
@@ -16,14 +16,13 @@ eas whoami || eas login
 echo "Verifying project dependencies..."
 npm install
 
-# Configure the build if needed
-echo "Setting up build configuration..."
-# Uncomment the next line if you need to reconfigure
-# eas build:configure
+# Run EAS init to ensure correct project configuration
+echo "Running EAS init to ensure correct configuration..."
+eas init --id=26879c02-27db-45ae-ad5c-da4356716044 --non-interactive
 
 # Start the production build process
 echo "Starting production APK build..."
-npm run build:android:prod
+npx eas-cli@5.7.0 build -p android --profile production
 
 echo "Build process initiated. You will receive a URL to monitor the build progress."
 echo "When the build is complete, you can download the APK from the provided URL."
